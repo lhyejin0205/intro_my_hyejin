@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>나만 보는 공간 | 임혜진 포트폴리오</title>
+<style>
+  /* [개발 · 서비스/웹] 소개 페이지(index.html)와 같은 색·글꼴·격자 배경 */
+  @font-face {
+    font-family: 'NexonLv2Gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NexonLv2Gothic.woff') format('woff');
+    font-weight: normal; font-style: normal;
+  }
+  :root {
+    --bg-main: #D8E2D3;
+    --surface: rgba(255, 255, 255, 0.96);
+    --surface-evidence: rgba(240, 245, 238, 0.95);
+    --text-main: #1C261E;
+    --text-muted: #2E3B30;
+    --accent-dark: #1F2E1C;
+    --line: rgba(31, 46, 28, 0.15);
+    --danger: #8A2A1E;
+    --danger-soft: #F7E3DE;
+    --ok: #2F5D2A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+  body {
+    background-color: var(--bg-main);
+    background-image:
+      linear-gradient(rgba(60, 90, 60, 0.12) 1.5px, transparent 1.5px),
+      linear-gradient(90deg, rgba(60, 90, 60, 0.12) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+    color: var(--text-main);
+    font-family: 'NexonLv2Gothic', sans-serif;
+    line-height: 1.6;
+    word-break: keep-all;
+    min-height: 100vh;
+    padding: 32px 16px 64px;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent-dark); outline-offset: 2px; }
+  .wrap { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+  .back { font-size: 14px; text-decoration: none; color: var(--text-muted); align-self: flex-start; }
+  .back:hover { text-decoration: underline; }
+  .card { background: var(--surface); border-radius: 16px; padding: 28px; box-shadow: 0 2px 4px rgba(31,46,28,.05), 0 12px 32px rgba(31,46,28,.08); }
+  .label { font-size: 12px; letter-spacing: .12em; color: var(--text-muted); font-family: 'NexonLv2Gothic', monospace; }
+  h1 { font-size: 28px; letter-spacing: -0.03em; margin: 6px 0 8px; }
+  h2 { font-size: 18px; letter-spacing: -0.02em; margin-bottom: 12px; }
+  p.lead { color: var(--text-muted); font-size: 15px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  button {
+    font: inherit; font-size: 15px; cursor: pointer; border-radius: 999px; min-height: 44px; padding: 10px 20px;
+    border: 1.5px solid var(--accent-dark); background: var(--accent-dark); color: #fff;
+  }
+  button.ghost { background: transparent; color: var(--accent-dark); }
+  button.link { background: none; border: none; min-height: 0; padding: 4px 6px; font-size: 13px; color: var(--danger); text-decoration: underline; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  form { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--text-muted); }
+  input, textarea {
+    font: inherit; font-size: 15px; color: var(--text-main); background: var(--surface-evidence);
+    border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  details { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+  summary { cursor: pointer; font-size: 15px; color: var(--accent-dark); }
+  .hint { font-size: 12px; color: var(--text-muted); }
+  .msg { border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+  .msg.error { background: var(--danger-soft); color: var(--danger); }
+  .msg.ok { background: var(--surface-evidence); color: var(--ok); }
+  ul.list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  ul.list li { background: var(--surface-evidence); border-radius: 10px; padding: 12px 14px; display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; }
+  ul.list .meta { font-size: 12px; color: var(--text-muted); }
+  ul.list .body { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .empty { color: var(--text-muted); font-size: 14px; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--text-muted); margin-left: 6px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="/">← 공개 소개 페이지로</a>
+
+  <div id="msg" class="msg" role="status" aria-live="polite" hidden></div>
+
+  <!-- 로그인 전 -->
+  <section id="signed-out" class="card" hidden>
+    <div class="label">PRIVATE · PASSKEY</div>
+    <h1>나만 보는 공간</h1>
+    <p class="lead">이 공간은 패스키로 잠겨 있습니다. 비밀번호 없이 지문·얼굴·화면 잠금으로 들어갑니다. 공개 소개 페이지는 누구나 볼 수 있습니다.</p>
+    <div class="row" style="margin-top:20px">
+      <button type="button" id="login-btn">패스키로 들어가기</button>
+    </div>
+    <details id="signup">
+      <summary>처음이에요 — 패스키 만들기</summary>
+      <form id="signup-form" autocomplete="off" novalidate>
+        <label>아이디 (영어 소문자·숫자·-·_ 3~30자)
+          <input name="handle" required minlength="3" maxlength="30" pattern="[a-z0-9_-]{3,30}" autocapitalize="off" spellcheck="false" placeholder="예: hyejin">
+        </label>
+        <label>화면에 보일 이름
+          <input name="displayName" maxlength="40" placeholder="예: 혜진">
+        </label>
+        <label>이 패스키 이름 (어느 기기인지)
+          <input name="nickname" maxlength="40" placeholder="예: 내 휴대폰">
+        </label>
+        <button type="submit">패스키 만들고 들어가기</button>
+        <p class="hint">기기가 지문·얼굴·화면 잠금을 물어보면 확인해 주세요. 서버에는 공개키만 저장되고 생체 정보는 기기 밖으로 나가지 않습니다.</p>
+      </form>
+    </details>
+  </section>
+
+  <!-- 로그인 뒤 -->
+  <section id="signed-in" hidden>
+    <div class="card">
+      <div class="label">PRIVATE · PASSKEY</div>
+      <h1 id="hello">나만 보는 공간</h1>
+      <p class="lead">여기 있는 메모는 로그인한 나에게만 서버가 보내 줍니다. 다른 계정이나 로그인하지 않은 사람에게는 보이지 않습니다.</p>
+      <div class="row" style="margin-top:16px">
+        <button type="button" class="ghost" id="logout-btn">로그아웃</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h2>비공개 메모</h2>
+      <ul class="list" id="notes"></ul>
+      <form id="note-form" autocomplete="off">
+        <label>새 메모
+          <textarea name="body" maxlength="1000" required placeholder="공개 페이지에는 올리지 않을 메모 (시험할 때는 예시 문장만 쓰세요)"></textarea>
+        </label>
+        <button type="submit">메모 저장</button>
+      </form>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h2>내 패스키</h2>
+      <ul class="list" id="passkeys"></ul>
+      <form id="add-form" autocomplete="off">
+        <label>다른 기기·브라우저에 패스키 추가
+          <input name="nickname" maxlength="40" placeholder="예: 노트북 크롬">
+        </label>
+        <button type="submit" class="ghost">이 기기에 패스키 추가</button>
+        <p class="hint">기기를 잃어버릴 때를 대비해 패스키를 두 개 이상 두세요. 마지막 하나는 지울 수 없습니다.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="unsupported" class="card" hidden>
+    <h1>이 브라우저는 패스키를 지원하지 않습니다</h1>
+    <p class="lead">최신 Chrome, Safari, Edge, Firefox에서 다시 열어 주세요.</p>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@simplewebauthn/browser@14.0.0/dist/bundle/index.umd.min.js"></script>
+<script src="/private.js"></script>
+</body>
+</html>
