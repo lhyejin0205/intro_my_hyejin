@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10번 연구 논문 · 임혜진</title>
+<!-- [마지막 과제 A · 개발] portfolio_update.py 가 content/*.md 로 만든 문서 페이지 -->
+<style>
+:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#5b616b;--line:#e3e0d8;--card:#ffffff;--accent:#2f6f5e;--accent-soft:#e6f0ec}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#a3a8b0;--line:#2c3036;--card:#1c1f23;--accent:#7cc4ad;--accent-soft:#1f2f2a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all}
+a{color:var(--accent)}
+.wrap{max-width:820px;margin:0 auto;padding:24px 16px 64px}
+.top{font-size:.92rem;margin-bottom:16px}
+h1{font-size:1.6rem;line-height:1.4}
+h2{font-size:1.3rem;margin-top:36px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:1.1rem;margin-top:28px}
+.tbl{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--card)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft)}
+blockquote{margin:12px 0;padding:8px 14px;border-left:4px solid var(--accent);background:var(--accent-soft)}
+code{background:var(--accent-soft);padding:1px 5px;border-radius:4px;font-size:.9em}
+pre{background:var(--card);border:1px solid var(--line);padding:12px;overflow-x:auto}
+img{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px}
+hr{border:0;border-top:1px solid var(--line);margin:28px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="top"><a href="../">← 임혜진 포트폴리오로 돌아가기</a></p>
+<h1>연구 기관이 하나뿐인 재활·작업치료 임상시험은 모집 부진으로 더 자주 중단되는가?</h1>
+<h3>ClinicalTrials.gov 등록 시험 7,562건의 단면 분석</h3>
+<ul><li>작성자: 임혜진 (ALEPH K-뉴딜 아카데미 대전 C반)</li><li>작성일: 2026-11-24</li><li>과제: T10 · AI 협업 연구 논문 작성과 가설 검증</li><li>자료: ClinicalTrials.gov API v2, 데이터 기준 시각 2026-11-20 10:00:05, 수집 2026-11-23</li></ul>
+<hr>
+<h2>초록</h2>
+<p><strong>목적.</strong> 연구 기관이 1곳인 재활·작업치료 중재 임상시험이 2곳 이상인 시험보다 "모집 부진"으로 중단되는 비율이 높은지 확인한다. <strong>방법.</strong> ClinicalTrials.gov에서 2005–2022년에 시작해 완료 또는 중단된 재활·작업치료 중재 시험 8,105건을 받아, 연구 기관이 등록된 7,562건을 분석했다. 기관 수(1곳 / 2곳 이상)에 따라 중단 사유에 모집 부진이 적힌 시험의 비율을 비교했다(위험비, Fisher 정확 검정). 가설과 판정 기준은 데이터를 받기 전에 고정했다. <strong>결과.</strong> 모집 부진 중단은 단일 기관 시험 194/6,474건(3.00%), 다기관 시험 45/1,088건(4.14%)이었다(위험비 0.72, 95% CI 0.53–1.00, p = 0.049). 단일 기관 쪽이 더 낮아 <strong>가설은 지지되지 않았다.</strong> 후원 기관 유형으로 보정한 위험비는 0.76(0.55–1.07)이었고, COVID-19가 사유로 적힌 시험을 빼면 차이가 뚜렷하지 않았다(0.85, 0.59–1.22). <strong>결론.</strong> 이 자료에서는 기관이 하나뿐인 재활 시험이 모집 부진으로 더 자주 중단된다는 근거를 찾지 못했다.</p>
+<hr>
+<h2>1. 서론</h2>
+<h3>1-1. 연구 배경</h3>
+<p>임상시험이 목표한 참여자를 모으지 못하면 중간에 멈추거나, 끝나더라도 처음 세운 연구 질문에 답하지 못한다. 그동안 참여한 사람의 시간과 연구비는 결과로 남지 못한다. 나는 재활의학과에서 연구코디네이터로 2년간 일하며 연구에 참여할 환자를 모집했고, 한 기관 안에서 조건에 맞는 환자를 찾는 일이 가장 어려웠다. 이 경험에서 "기관이 하나뿐이면 만날 수 있는 환자가 처음부터 적어서 모집에 실패하기 쉽지 않을까"라는 질문을 세웠다.</p>
+<h3>1-2. 선행 연구에서 확인된 사실</h3>
+<p>아래 내용은 각 문헌의 초록 원문에서 직접 확인한 것이다(확인 방법은 부록 A).</p>
+<ul><li>2000–2003년 윤리위원회에 제출된 무작위 시험 1,017건 가운데 253건(24.9%)이 중단되었고, 가장 흔한 사유는 모집 부진(101건, 9.9%)이었다. 산업체 후원(8.4% 대 26.5%)과 큰 계획 표본은 모집 부진 중단이 적은 것과 관련이 있었다 [1].</li><li>ClinicalTrials.gov 결과 데이터베이스의 중단 시험 905건 가운데, 시험 데이터와 무관한 이유로 중단된 619건에서 가장 흔한 사유는 모집 속도 부족(350건, 57%)이었다 [2].</li><li>2011년에 종료된 2·3상 중재 시험 2,579건 중 481건(19%)이 모집 실패로 중단되었거나 목표의 85% 미만으로 끝났다. 비산업체 후원, 이른 단계, 그리고 <strong>연구 기관 수가 적은 것</strong>이 모집 실패와 관련이 있었다 [3].</li><li>모집 부진으로 중단된 무작위 시험 172건에서 가장 자주 보고된 원인은 대상자 유병률의 과대 추정과, 모집자·참여자가 중재에 대해 가진 선입견이었다 [4].</li><li>모집을 늘리는 전략을 평가한 시험 68건을 모은 고찰에서, 확실성이 높은 근거가 있는 비교는 72개 중 3개뿐이었다 [5].</li><li>2005–2015년 뇌졸중 재활 무작위 시험 512건에서 선별된 사람의 약 3분의 1(중앙값 34%)이 참여에 동의했고, 기관당 한 달에 평균 1.5명을 모집했다 [6].</li><li>급성기 재활 무작위 시험에서 환자를 모집한 치료사 18명을 조사한 연구에서, 치료사가 일한 기관은 모집률에 영향을 주지 않았고, 대학원 과정 이수 여부와 환자 예후에 대한 우려가 모집률과 관련이 있었다 [7].</li><li>ClinicalTrials.gov 자료를 묶어 분석할 때는 자료 구조·용어·수집 방식이 시기에 따라 바뀐 점을 고려해야 한다 [8].</li></ul>
+<h3>1-3. 이번 연구가 주장하려는 것과 가설</h3>
+<p>선행 연구 [3]은 약물 위주의 2·3상 시험에서 기관 수와 모집 실패의 관련성을 보였다. 재활·작업치료 시험은 대부분 비약물·학계 주도이고 단일 기관에서 진행되는 경우가 많아, 같은 관계가 나타나는지는 확인되지 않았다. 이번 연구는 이 관계를 <strong>재활·작업치료 시험에서 다시 확인</strong>하려 한다.</p>
+<blockquote><strong>가설.</strong> 재활·작업치료 중재를 다루는 종료된 중재 임상시험 가운데, 등록된 연구 기관이 1곳인 시험은 2곳 이상인 시험보다 "모집 부진"을 사유로 중단된 비율이 높다.</blockquote>
+<p>가설을 반증하는 결과는 "단일 기관의 비율이 다기관보다 같거나 낮음" 또는 "위험비의 95% 신뢰구간이 1을 포함함"으로 미리 정했다.</p>
+<h2>2. 방법</h2>
+<h3>2-1. 연구 설계와 사전 고정</h3>
+<p>등록 자료를 이용한 단면 분석이다. 관심 분야, 검토한 후보 주제 10개, 제외한 주제와 사유, 가설, 측정 방법, 판정 기준, 보조 분석을 <code>01_가설과_분석계획.md</code>에 적고, <strong>원자료를 받기 전에</strong> 파일 지문(SHA-256)을 남겨 고정했다. 고정 뒤 달라진 점은 <code>02_설계변경_기록.md</code>에 모두 적었다.</p>
+<h3>2-2. 자료원과 대상</h3>
+<ul><li>자료원: ClinicalTrials.gov API v2 (미국 국립의학도서관), 2026-11-23 수집, 데이터 기준 시각 2026-11-20</li><li>검색 조건: 중재 항목 검색 <code>"occupational therapy" OR rehabilitation</code>, 연구 유형 중재(INTERVENTIONAL), 상태 완료(COMPLETED) 또는 중단(TERMINATED), 시작일 2005-01-01 ~ 2022-12-31</li><li>조건에 맞는 시험 <strong>전체</strong>를 받았다(8,105건, API가 알려 준 건수와 일치).</li><li>제외: 연구 기관이 하나도 등록되지 않아 기관 수를 알 수 없는 시험 543건</li><li>분석 대상: <strong>7,562건</strong> (완료 7,023건, 중단 539건)</li></ul>
+<h3>2-3. 실험·분석 설계</h3>
+<div class="tbl"><table><thead><tr><th>구분</th><th>내용</th></tr></thead><tbody><tr><td>비교 조건 (독립변수)</td><td>등록된 연구 기관 수: 단일 기관(1곳) / 다기관(2곳 이상). 기관은 시설명·도시·국가 조합으로 중복 없이 셌다</td></tr><tr><td>고정 조건</td><td>중재 시험, 완료 또는 중단 상태, 시작일 2005–2022, 같은 검색어, 같은 수집 시점, 같은 분류 규칙</td></tr><tr><td>표본 수</td><td>7,562건 (단일 기관 6,474건, 다기관 1,088건)</td></tr><tr><td>측정 변수 (종속변수)</td><td>모집 부진 중단 여부(1/0): 상태가 중단이고 중단 사유(whyStopped)에 미리 정한 낱말 규칙(recruit, enrol, accru, lack of participants 등)이 맞으면 1</td></tr><tr><td>기록 방법</td><td>API 응답 원문을 <code>data/raw/</code>에 페이지별 JSON으로 저장, 시험별 정리표를 <code>data/trials_main.csv</code>로 저장</td></tr><tr><td>주 분석</td><td>2×2 표, 비율 차이, 위험비(로그 방법 95% CI), Fisher 정확 검정(양측, 유의수준 0.05)</td></tr><tr><td>보조 분석 (사전 계획)</td><td>1) 후원 유형(산업체/그 밖)으로 나눠 보기와 Mantel–Haenszel 보정 위험비 2) 시작 시기(2005–2013/2014–2022) 3) 작업치료만 4) 중단 시험 안에서의 사유 비율 5) 분류 규칙 점검(무작위 40건)</td></tr><tr><td>탐색적 점검 (결과를 본 뒤 추가)</td><td>E1) 규칙에 "inclusion" 추가 E2) COVID-19 사유 제외 E3) 사유와 상관없는 전체 중단 E4) 완료 시험의 등록 인원 비교</td></tr></tbody></table></div>
+<p>예비 실행으로 검색 조건별 전체 건수만 확인해, 작업치료만으로는 중단 시험이 66건뿐이어서 판정이 어렵다는 것을 알고 범위를 재활까지 넓혔다. 이때 기관 수나 사유별 수치는 보지 않았다.</p>
+<h3>2-4. 도구</h3>
+<p>Python 3 표준 라이브러리만 썼다(외부 패키지 없음). 수집은 <code>scripts/fetch_ctgov.py</code>, 분석·표·그림은 <code>scripts/analyze.py</code>가 만든다.</p>
+<h2>3. 결과</h2>
+<h3>3-1. 분석 대상</h3>
+<p><strong>표 1. 분석 대상의 흐름</strong></p>
+<div class="tbl"><table><thead><tr><th>항목</th><th>건수</th></tr></thead><tbody><tr><td>내려받은 시험</td><td>8,105</td></tr><tr><td>제외: 연구 기관이 등록되지 않음</td><td>543</td></tr><tr><td>분석한 시험</td><td>7,562</td></tr><tr><td>완료</td><td>7,023</td></tr><tr><td>중단 (사유 없음 30건 포함)</td><td>539</td></tr><tr><td>그중 모집 부진 중단</td><td>239</td></tr><tr><td>단일 기관 / 다기관</td><td>6,474 / 1,088</td></tr></tbody></table></div>
+<p>단일 기관 시험이 전체의 85.6%였다. 산업체가 주 후원자인 시험은 단일 기관에서 1.90%, 다기관에서 8.36%였다.</p>
+<h3>3-2. 주 분석</h3>
+<p><strong>표 2. 기관 수별 모집 부진 중단 비율</strong></p>
+<div class="tbl"><table><thead><tr><th>분석</th><th>단일 기관</th><th>다기관</th><th>비율 차이</th><th>위험비 (95% CI)</th><th>Fisher p</th></tr></thead><tbody><tr><td><strong>주 분석: 전체</strong></td><td>194/6,474 (3.00%)</td><td>45/1,088 (4.14%)</td><td>−1.14%p</td><td><strong>0.72 (0.53–1.00)</strong></td><td><strong>0.049</strong></td></tr><tr><td>보조 1: 산업체 후원</td><td>4/123 (3.25%)</td><td>10/91 (10.99%)</td><td>−7.74%p</td><td>0.30 (0.10–0.91)</td><td>0.028</td></tr><tr><td>보조 1: 산업체 외 후원</td><td>190/6,351 (2.99%)</td><td>35/997 (3.51%)</td><td>−0.52%p</td><td>0.85 (0.60–1.21)</td><td>0.374</td></tr><tr><td>보조 2: 시작 2005–2013</td><td>55/1,606 (3.42%)</td><td>12/351 (3.42%)</td><td>0.01%p</td><td>1.00 (0.54–1.85)</td><td>1.000</td></tr><tr><td>보조 2: 시작 2014–2022</td><td>139/4,868 (2.86%)</td><td>33/737 (4.48%)</td><td>−1.62%p</td><td>0.64 (0.44–0.92)</td><td>0.022</td></tr><tr><td>보조 3: 작업치료만</td><td>20/432 (4.63%)</td><td>4/85 (4.71%)</td><td>−0.08%p</td><td>0.98 (0.34–2.81)</td><td>1.000</td></tr><tr><td>보조 4: 중단 시험 안에서</td><td>194/441 (43.99%)</td><td>45/98 (45.92%)</td><td>−1.93%p</td><td>0.96 (0.75–1.22)</td><td>0.737</td></tr></tbody></table></div>
+<ul><li>주 분석의 비율 95% 신뢰구간: 단일 기관 2.61–3.44%, 다기관 3.11–5.49%</li><li>비율 차이 95% 신뢰구간: −2.39%p ~ 0.11%p</li><li>위험비 95% 신뢰구간의 상한은 0.996으로 1보다 조금 작다.</li><li>후원 유형으로 보정한 Mantel–Haenszel 위험비: 0.76 (0.55–1.07)</li></ul>
+<p><img alt="그림 1" src="figure1_low_accrual_by_sites.svg"></p>
+<p><strong>그림 1.</strong> 기관 수별 모집 부진 중단 비율과 95% 신뢰구간(Wilson 방법). <code>results/figure1_low_accrual_by_sites.svg</code></p>
+<h3>3-3. 가설과 일치하는 결과와 일치하지 않는 결과</h3>
+<div class="tbl"><table><thead><tr><th>구분</th><th>결과</th><th>근거 값</th></tr></thead><tbody><tr><td>일치하지 않음 (주 분석)</td><td>단일 기관의 모집 부진 중단 비율이 다기관보다 <strong>낮았다</strong></td><td>3.00% 대 4.14%, 위험비 0.72</td></tr><tr><td>일치하지 않음</td><td>사전에 정한 지지 조건(위험비 하한 &gt; 1, p &lt; 0.05)을 만족하지 않았다</td><td>위험비 95% CI 0.53–1.00</td></tr><tr><td>일치하지 않음 (보조 1)</td><td>산업체 후원 시험에서 다기관이 더 높았다</td><td>3.25% 대 10.99%</td></tr><tr><td>일치하지 않음 (보조 2)</td><td>2014–2022년에 시작한 시험에서 다기관이 더 높았다</td><td>2.86% 대 4.48%</td></tr><tr><td>차이 없음 (보조 1·2·3·4)</td><td>산업체 외 후원, 2005–2013년 시작, 작업치료만, 중단 시험 안에서는 두 집단이 비슷했다</td><td>위험비 0.85, 1.00, 0.98, 0.96 (모두 신뢰구간이 1을 포함)</td></tr><tr><td>일치하는 결과</td><td>없음. 어느 분석에서도 단일 기관이 통계적으로 더 높게 나오지 않았다</td><td>—</td></tr></tbody></table></div>
+<p><strong>판단.</strong> 미리 정한 기준에 따라 이 데이터는 가설을 <strong>지지하지 않는다.</strong> 주 분석의 방향은 가설과 반대였다. 다만 위험비 신뢰구간의 상한이 0.996, p가 0.049로 경계에 있고, 후원 유형으로 보정하면 1을 포함하므로(0.55–1.07), "다기관 시험이 모집 부진으로 더 자주 중단된다"고 반대 방향의 결론을 내리지도 않는다.</p>
+<h3>3-4. 결과를 본 뒤 추가한 탐색적 점검</h3>
+<p>아래는 가설 검증에 쓰지 않는 탐색적 결과다.</p>
+<p><strong>표 3. 탐색적 점검</strong></p>
+<div class="tbl"><table><thead><tr><th>점검</th><th>단일 기관</th><th>다기관</th><th>위험비 (95% CI)</th><th>Fisher p</th></tr></thead><tbody><tr><td>E1: 분류 규칙에 "inclusion" 추가</td><td>208/6,474 (3.21%)</td><td>52/1,088 (4.78%)</td><td>0.67 (0.50–0.90)</td><td>0.012</td></tr><tr><td>E2: COVID-19 사유 79건 제외</td><td>174/6,414 (2.71%)</td><td>34/1,069 (3.18%)</td><td>0.85 (0.59–1.22)</td><td>0.367</td></tr><tr><td>E3: 사유와 상관없는 전체 중단</td><td>441/6,474 (6.81%)</td><td>98/1,088 (9.01%)</td><td>0.76 (0.61–0.93)</td><td>0.011</td></tr></tbody></table></div>
+<ul><li>E4: 완료된 시험의 실제 등록 인원 중앙값은 단일 기관 45명, 다기관 78명이었다.</li><li>E5: 중단 시험 가운데 무작위 40건의 사유 문장을 읽고 판정한 결과, 규칙 분류와 37건(92.5%)이 일치했다. 1건은 잘못 포함("enrolled"가 등록 인원을 말한 경우), 2건은 놓침("lack of inclusions", "difficulty of inclusion")이었다(<code>results/keyword_check_judged.csv</code>).</li></ul>
+<h2>4. 논의</h2>
+<h3>4-1. 결과의 해석</h3>
+<p>재활·작업치료 시험 7,562건에서, 기관이 하나뿐인 시험이 모집 부진으로 더 자주 중단된다는 근거는 나오지 않았다. 오히려 다기관 시험의 비율이 조금 높았지만, 그 차이는 경계에 있고 후원 유형을 고려하거나 COVID-19 사유를 빼면 뚜렷하지 않았다. 이는 2·3상 시험에서 기관이 적을수록 모집 실패가 많았던 선행 연구 [3]과 다른 결과다.</p>
+<h3>4-2. 가설과 다른 결과가 나온 원인 후보</h3>
+<ol><li><strong>시험 규모의 차이.</strong> 다기관 시험은 완료된 경우에도 등록 인원 중앙값이 더 컸다(78명 대 45명, E4). 단일 기관 재활 시험에는 목표 인원이 작은 예비 연구가 많을 수 있고, 목표가 작으면 모집 실패로 중단될 가능성도 작다. 다만 이번 자료에서 계획 목표 인원은 따로 확인하지 못했다(완료 시험은 실제 인원으로 바뀌어 있음).</li><li><strong>COVID-19의 영향.</strong> 사유에 COVID-19가 적힌 시험을 빼자 다기관의 모집 부진 중단이 45건에서 34건으로 줄고 두 집단의 차이가 사라졌다(E2). 여러 기관이 함께 움직여야 하는 시험이 감염병 유행기에 더 쉽게 멈췄을 가능성이 있다. 2014–2022년에 시작한 시험에서만 차이가 보인 것(보조 2)도 이 설명과 어긋나지 않는다.</li><li><strong>다기관 시험의 전반적인 중단 경향.</strong> 사유와 상관없이 중단 비율 자체가 다기관에서 높았고(9.01% 대 6.81%, E3), 중단된 시험 안에서 모집 부진이 차지하는 비율은 두 집단이 비슷했다(43.99% 대 45.92%, 보조 4). 즉 다기관 시험은 모집 문제가 특별히 많다기보다, 여러 이유로 더 자주 중단되는 것으로 보인다.</li><li><strong>후원 유형.</strong> 산업체 후원은 다기관에 많았고(8.36% 대 1.90%), 산업체 후원 다기관 시험의 모집 부진 중단이 높았다(10.99%). 다만 해당 시험이 214건뿐이라 이 차이는 불확실하다.</li><li><strong>기관 수 측정의 한계.</strong> 등록 기관 목록은 시험이 끝날 때 기준이고, 실제 운영 기관 수와 다를 수 있다. 등록된 기관이 없는 543건은 분석에서 빠졌다.</li></ol>
+<p>위 원인 후보 1–4는 같은 자료로 결과를 본 뒤 확인한 것이므로 <strong>탐색적 가설</strong>이다. 검증하려면 계획 목표 인원이 남아 있는 별도 자료(예: 등록 이력)나 다른 기간의 자료가 필요하다.</p>
+<h3>4-3. 연구의 한계</h3>
+<ul><li><strong>측정.</strong> 모집 부진은 중단 사유 문장의 낱말 규칙으로 판정했다. 점검 표본 40건에서 3건이 어긋났고, 특히 "inclusion" 같은 표현을 놓쳤다. 이를 더한 넓은 규칙(E1)에서도 방향은 같았다.</li><li><strong>결과 정의.</strong> 끝까지 완료했지만 목표 인원에 못 미친 시험은 "모집 부진"으로 세지 않았다. 선행 연구 [3]은 이런 시험도 모집 실패에 포함했으므로 두 연구의 수치를 직접 비교할 수 없다.</li><li><strong>대상.</strong> 검색어 "rehabilitation"은 심장·호흡·약물 재활 등 넓은 시험을 포함한다. 작업치료만 본 분석(517건)은 중단 건수가 적어 차이를 판정하기 어려웠다.</li><li><strong>관측 자료.</strong> 등록 자료를 이용한 단면 분석이므로 인과 관계를 말할 수 없다. 시험 규모, 후원, 국가, 질환 같은 다른 요인을 모두 보정하지 않았다.</li><li><strong>분석 시점.</strong> 등록 내용은 계속 갱신된다. 이 논문의 수치는 제출 패키지에 들어 있는 2026-11-23 수집 원자료를 기준으로 한다.</li><li><strong>분류 점검.</strong> 사유 문장 40건을 읽고 판정한 것은 AI(Claude)이고, 판정 근거를 표에 남겼다.</li></ul>
+<h3>4-4. 결론</h3>
+<p>2005–2022년에 시작한 재활·작업치료 중재 임상시험 7,562건에서, 연구 기관이 하나뿐인 시험이 모집 부진으로 더 자주 중단된다는 가설은 지지되지 않았다. 단일 기관 시험의 모집 부진 중단 비율은 3.00%로 다기관 4.14%보다 낮았고, 이 차이는 경계 수준이며 후원 유형을 보정하거나 COVID-19 사유를 빼면 뚜렷하지 않았다. 이 자료가 뒷받침하는 범위에서 말할 수 있는 것은 "등록된 기관 수만으로는 재활 시험의 모집 부진 중단을 설명하기 어렵다"는 것이다. 연구코디네이터로서 내가 겪은 "한 기관에서 환자를 찾기 어렵다"는 경험은, 시험이 중단되는 비율보다는 모집 속도나 목표 달성률 같은 다른 지표에서 확인해야 할 질문으로 남는다.</p>
+<hr>
+<h2>참고문헌</h2>
+<ol><li>Kasenda B, von Elm E, You J, Blümle A, Tomonaga Y, Saccilotto R, et al. Prevalence, characteristics, and publication of discontinued randomized trials. JAMA. 2014;311(10):1045-51. doi:10.1001/jama.2014.1361. PMID: 24618966.</li><li>Williams RJ, Tse T, DiPiazza K, Zarin DA. Terminated trials in the ClinicalTrials.gov results database: evaluation of availability of primary outcome data and reasons for termination. PLoS One. 2015;10(5):e0127242. doi:10.1371/journal.pone.0127242. PMID: 26011295.</li><li>Carlisle B, Kimmelman J, Ramsay T, MacKinnon N. Unsuccessful trial accrual and human subjects protections: an empirical analysis of recently closed trials. Clin Trials. 2015;12(1):77-83. doi:10.1177/1740774514558307. PMID: 25475878.</li><li>Briel M, Olu KK, von Elm E, Kasenda B, Alturki R, Agarwal A, et al. A systematic review of discontinued trials suggested that most reasons for recruitment failure were preventable. J Clin Epidemiol. 2016;80:8-15. doi:10.1016/j.jclinepi.2016.07.016. PMID: 27498376.</li><li>Treweek S, Pitkethly M, Cook J, Fraser C, Mitchell E, Sullivan F, et al. Strategies to improve recruitment to randomised trials. Cochrane Database Syst Rev. 2018;2(2):MR000013. doi:10.1002/14651858.MR000013.pub6. PMID: 29468635.</li><li>McGill K, Sackley CM, Godwin J, McGarry J, Brady MC. A systematic review of the efficiency of recruitment to stroke rehabilitation randomised controlled trials. Trials. 2020;21(1):68. doi:10.1186/s13063-019-3991-2. PMID: 31924252.</li><li>Lannin N, Cusick A. Factors affecting patient recruitment in an acute rehabilitation randomized controlled trial. Am J Occup Ther. 2006;60(2):177-81. doi:10.5014/ajot.60.2.177. PMID: 16596921.</li><li>Tasneem A, Aberle L, Ananth H, Chakraborty S, Chiswell K, McCourt BJ, et al. The database for aggregate analysis of ClinicalTrials.gov (AACT) and subsequent regrouping by clinical specialty. PLoS One. 2012;7(3):e33677. doi:10.1371/journal.pone.0033677. PMID: 22438982.</li></ol>
+<p>자료원: U.S. National Library of Medicine. ClinicalTrials.gov API v2 [Internet]. https://clinicaltrials.gov/api/v2/studies (접근일 2026-11-23; 데이터 기준 2026-11-20).</p>
+<hr>
+<h2>부록 A. 선행 연구 확인 방법과 각 문헌이 뒷받침하는 부분</h2>
+<p><strong>확인 방법.</strong> AI(Claude)가 먼저 관련 문헌 후보를 제시했다. PubMed 웹페이지는 자동 접근이 막혀 있어, 미국 국립생물정보센터(NCBI)가 자동 조회용으로 제공하는 E-utilities(esummary·efetch)로 각 문헌의 제목·저자·학술지·연도·권호·쪽·DOI·PMID와 초록 원문을 받았다. 받은 초록 원문은 <code>references/abstracts_pubmed_efetch.txt</code>, <code>references/abstracts_rehab_efetch.txt</code>에 그대로 보관했다. 본문 1-2절의 수치는 모두 이 초록에서 옮겼고, 본문 전문(full text)은 읽지 않았다.</p>
+<div class="tbl"><table><thead><tr><th>#</th><th>문헌</th><th>실재 확인</th><th>이 연구의 어느 부분을 뒷받침하나</th><th>근거 종류</th></tr></thead><tbody><tr><td>1</td><td>Kasenda 2014</td><td>예</td><td>모집 부진이 가장 흔한 중단 사유이고, 산업체 후원이 관련 요인이라는 점 → 보조 분석 1(후원 유형) 설계</td><td>시험 1,017건 코호트 데이터</td></tr><tr><td>2</td><td>Williams 2015</td><td>예</td><td>ClinicalTrials.gov 중단 사유 자료에서 모집 부족이 주된 사유라는 점 → 자료원과 결과 변수 선택</td><td>등록 자료 905건 분석</td></tr><tr><td>3</td><td>Carlisle 2015</td><td>예</td><td>기관 수가 적을수록 모집 실패와 관련 → 가설 방향의 직접 근거</td><td>등록 자료 2,579건 분석</td></tr><tr><td>4</td><td>Briel 2016</td><td>예</td><td>모집 실패의 원인이 대상자 수 과대 추정 등 계획 단계에 있다는 점 → 논의 4-2</td><td>체계적 문헌고찰(시험 172건)</td></tr><tr><td>5</td><td>Treweek 2018</td><td>예</td><td>모집 전략의 근거가 아직 약하다는 점 → 연구 배경</td><td>코크란 체계적 문헌고찰</td></tr><tr><td>6</td><td>McGill 2020</td><td>예</td><td>재활 시험의 기관당 모집 속도 → 재활 분야의 모집 어려움 배경</td><td>체계적 문헌고찰(시험 512건)</td></tr><tr><td>7</td><td>Lannin 2006</td><td>예</td><td>작업치료 시험에서 기관보다 모집자 요인이 모집률과 관련 → 기관 수 외 요인에 대한 논의</td><td>치료사 18명 설문</td></tr><tr><td>8</td><td>Tasneem 2012</td><td>예</td><td>ClinicalTrials.gov 자료를 묶어 분석할 때의 주의점 → 한계</td><td>데이터베이스 구축·검증 연구</td></tr></tbody></table></div>
+<p><strong>제외한 문헌.</strong> 실재하지 않거나 인용 내용이 달라 제외한 문헌은 없다. 다만 AI가 처음 제시한 1번 문헌의 제목("Discontinuation of randomized clinical trials")이 실제 제목과 달라, PubMed 기록에 따라 바로잡았다.</p>
+<h2>부록 B. 재현 방법</h2>
+<p>자세한 절차는 <code>README.md</code>에 있다. 요약하면 다음과 같다.</p>
+<ol><li>Python 3.9 이상을 준비한다(외부 패키지 없음).</li><li>제출한 원자료로 결과를 다시 만들려면 <code>python scripts/analyze.py</code> 를 실행한다. <code>results/tables.md</code>의 수치가 이 논문의 표 1–3과 같으면 재현된 것이다.</li><li>원자료를 새로 받으려면 <code>python scripts/fetch_ctgov.py</code> 와 <code>python scripts/fetch_ctgov.py --ot-only</code> 를 먼저 실행한다. 등록 내용이 계속 갱신되므로 새로 받은 자료의 수치는 조금 다를 수 있다.</li></ol>
+<h2>부록 C. AI와 나의 판단</h2>
+<ul><li><strong>AI에게 맡긴 일:</strong> 관심 분야(재활 임상시험 모집)에 맞는 후보 주제 10개와 데이터 출처 제안, 가설 문장·측정 방법·판정 기준·분석 계획 초안 작성, 선행 문헌 후보 제시와 PubMed 공식 조회로 실재 확인, 수집·분석 스크립트 작성과 실행, 중단 사유 40건 분류 점검, 탐색적 점검, 논문 초안 작성을 맡겼다. 범위를 작업치료에서 재활까지 넓히는 것, 가설 방향(단일 기관이 더 높다), 낱말 규칙도 AI가 제안해 진행했다.</li><li><strong>내가 직접 판단한 일:</strong> AI가 낸 후보 가운데 연구코디네이터로 환자 모집을 했던 내 경험과 이어지는 "임상시험 모집 부진"을 주제로 골랐다. 가설의 출발점인 "한 기관에서 환자를 찾기가 가장 어려웠다"는 경험은 내 것이다.</li><li><strong>AI 말을 안 들은 일:</strong> 없다. 이번에는 주제를 고른 뒤 설계와 분석을 AI에게 맡겼고, AI의 제안을 되돌린 일이 없었다. 가설과 판정 기준은 데이터를 받기 전에 고정되어 있었으므로, 결과가 가설과 반대로 나왔을 때도 가설이나 기준을 바꾸지 않고 그대로 실었다.</li></ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif">
+<rect width="640" height="380" fill="#ffffff"/>
+<text x="320.0" y="26" text-anchor="middle" font-size="16" font-weight="bold">그림 1. 기관 수별 모집 부진 중단 비율 (95% 신뢰구간)</text>
+<line x1="80" x2="610" y1="320.0" y2="320.0" stroke="#e5e7eb"/>
+<text x="72" y="324.0" text-anchor="end" font-size="12" fill="#374151">0%</text>
+<line x1="80" x2="610" y1="252.5" y2="252.5" stroke="#e5e7eb"/>
+<text x="72" y="256.5" text-anchor="end" font-size="12" fill="#374151">2%</text>
+<line x1="80" x2="610" y1="185.0" y2="185.0" stroke="#e5e7eb"/>
+<text x="72" y="189.0" text-anchor="end" font-size="12" fill="#374151">4%</text>
+<line x1="80" x2="610" y1="117.5" y2="117.5" stroke="#e5e7eb"/>
+<text x="72" y="121.5" text-anchor="end" font-size="12" fill="#374151">6%</text>
+<line x1="80" x2="610" y1="50.0" y2="50.0" stroke="#e5e7eb"/>
+<text x="72" y="54.0" text-anchor="end" font-size="12" fill="#374151">8%</text>
+<rect x="140.0" y="218.9" width="140" height="101.1" fill="#2563eb"/>
+<line x1="210" x2="210" y1="232.0" y2="203.9" stroke="#111827" stroke-width="2"/>
+<line x1="200" x2="220" y1="232.0" y2="232.0" stroke="#111827" stroke-width="2"/>
+<line x1="200" x2="220" y1="203.9" y2="203.9" stroke="#111827" stroke-width="2"/>
+<text x="210" y="195.9" text-anchor="middle" font-size="13" font-weight="bold">3.0%</text>
+<text x="210" y="340" text-anchor="middle" font-size="13">단일 기관 (1곳)</text>
+<text x="210" y="358" text-anchor="middle" font-size="12" fill="#4b5563">194 / 6474건</text>
+<rect x="400.0" y="180.4" width="140" height="139.6" fill="#9ca3af"/>
+<line x1="470" x2="470" y1="215.2" y2="134.7" stroke="#111827" stroke-width="2"/>
+<line x1="460" x2="480" y1="215.2" y2="215.2" stroke="#111827" stroke-width="2"/>
+<line x1="460" x2="480" y1="134.7" y2="134.7" stroke="#111827" stroke-width="2"/>
+<text x="470" y="126.7" text-anchor="middle" font-size="13" font-weight="bold">4.1%</text>
+<text x="470" y="340" text-anchor="middle" font-size="13">다기관 (2곳 이상)</text>
+<text x="470" y="358" text-anchor="middle" font-size="12" fill="#4b5563">45 / 1088건</text>
+<line x1="80" x2="610" y1="320.0" y2="320.0" stroke="#111827"/>
+</svg>
