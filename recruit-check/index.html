@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>재활 임상시험 모집 위험 점검표</title>
+<meta name="description" content="재활·작업치료 임상시험을 준비하는 연구코디네이터를 위한 모집 위험 점검표. ClinicalTrials.gov 등록 시험 7,562건 기반.">
+<!-- [마지막 과제 B · 개발 · 서비스/웹] 10번 논문의 결과를 적용한 정적 웹 앱. 로그인·서버·외부 호출 없음. -->
+<style>
+:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#5b616b;--line:#e3e0d8;--card:#fff;--accent:#2f6f5e;--accent-soft:#e6f0ec;--warn:#8a5a00;--warn-soft:#fbf1dc;--bad:#a23b2a}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#a3a8b0;--line:#2c3036;--card:#1c1f23;--accent:#7cc4ad;--accent-soft:#1f2f2a;--warn:#e0b35a;--warn-soft:#2e2717;--bad:#f08a76}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all}
+a{color:var(--accent)}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 20px;border-bottom:1px solid var(--line)}
+.paper{font-size:.9rem;color:var(--muted);margin:0 0 6px}
+.paper strong{color:var(--fg)}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 12px}
+.helps{background:var(--accent-soft);border-radius:12px;padding:14px 16px;margin:0;font-weight:600}
+.key{margin:14px 0 0;color:var(--muted)}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.steps a{padding:6px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--fg);background:var(--card);font-size:.92rem}
+section{padding:28px 0;border-bottom:1px solid var(--line)}
+h2{font-size:1.2rem;margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 14px}
+form.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:4px}
+select,input[type=text]{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+select:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.check{display:flex;gap:8px;align-items:center;font-weight:500}
+.result{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.big{font-size:1.8rem;font-weight:800;color:var(--accent)}
+.bar{position:relative;height:14px;background:var(--line);border-radius:7px;margin:10px 0 4px;overflow:hidden}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:7px}
+.bar .ci{position:absolute;top:2px;bottom:2px;border-left:2px solid var(--fg);border-right:2px solid var(--fg)}
+.scale{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.muted{color:var(--muted);font-size:.9rem}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+th{background:var(--accent-soft)}
+.verdict{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--warn-soft)}
+.verdict strong{color:var(--warn)}
+.nct{display:flex;gap:8px;flex-wrap:wrap}
+.nct input{flex:1 1 220px}
+button{font:inherit;font-weight:700;padding:8px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--bg);cursor:pointer}
+.err{color:var(--bad);font-weight:600}
+ul.checklist{padding-left:20px}
+ul.checklist li{margin:8px 0}
+.src{font-size:.82rem;color:var(--muted)}
+footer{padding:24px 0 48px;font-size:.88rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="paper">10번 논문 적용 · <strong>「연구 기관이 하나뿐인 재활·작업치료 임상시험은 모집 부진으로 더 자주 중단되는가?」</strong> (임혜진, 2026) — <a href="/portfolio/paper/">논문 읽기</a></p>
+  <h1>재활 임상시험 모집 위험 점검표</h1>
+  <p class="helps">이 앱은 재활·작업치료 임상시험을 준비하는 연구코디네이터가 모집 계획을 세울 때, 등록 시험 7,562건에서 비슷한 조건의 시험이 모집 부진으로 중단된 비율을 신뢰구간과 함께 보여 주고, "기관 수만으로는 위험을 판단할 수 없다"는 논문 결과와 함께 점검할 항목을 알려 줍니다.</p>
+  <p class="key">논문 결과 한 줄: 단일 기관 시험의 모집 부진 중단은 3.00%(194/6,474), 다기관은 4.14%(45/1,088)로, 단일 기관이 더 높다는 가설은 지지되지 않았습니다.</p>
+  <nav class="steps" aria-label="할 수 있는 일">
+    <a href="#task1">① 내 시험과 비슷한 시험의 중단 비율 보기</a>
+    <a href="#task2">② 단일 기관 vs 다기관 비교</a>
+    <a href="#task3">③ NCT 번호로 실제 시험 찾기</a>
+    <a href="#checklist">모집 계획 점검 목록</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section id="task1" aria-labelledby="t1">
+    <h2 id="t1">① 내 시험과 비슷한 시험은 얼마나 모집 부진으로 중단됐을까</h2>
+    <p class="lead">준비 중인 시험의 조건을 고르면, 같은 조건의 등록 시험 가운데 모집 부진으로 중단된 비율이 바로 나옵니다.</p>
+    <form class="filters" id="f1" onsubmit="return false">
+      <div><label for="site">연구 기관 수</label>
+        <select id="site"><option value="any">상관없음</option><option value="S">1곳 (단일 기관)</option><option value="M">2곳 이상 (다기관)</option></select></div>
+      <div><label for="sponsor">주 후원 기관</label>
+        <select id="sponsor"><option value="any">상관없음</option><option value="O">병원·대학 등 (산업체 외)</option><option value="I">산업체</option></select></div>
+      <div><label for="period">비교할 시작 시기</label>
+        <select id="period"><option value="any">2005~2022 전체</option><option value="late">2014~2022</option><option value="early">2005~2013</option></select></div>
+      <div><span class="check"><input type="checkbox" id="covid"><label for="covid" style="margin:0;font-weight:500">COVID-19가 중단 사유인 시험 빼기</label></span></div>
+    </form>
+    <div class="result" id="r1" aria-live="polite"></div>
+  </section>
+
+  <section id="task2" aria-labelledby="t2">
+    <h2 id="t2">② 같은 조건에서 단일 기관과 다기관을 비교하면</h2>
+    <p class="lead">①에서 고른 후원·시기 조건을 그대로 두고 기관 수만 나눠 비교합니다. 판정은 논문과 같은 규칙(위험비의 95% 신뢰구간)을 씁니다.</p>
+    <div class="result" id="r2" aria-live="polite"></div>
+  </section>
+
+  <section id="task3" aria-labelledby="t3">
+    <h2 id="t3">③ NCT 번호로 실제 시험 찾아보기</h2>
+    <p class="lead">참고하려는 시험의 ClinicalTrials.gov 번호를 넣으면, 이 자료에서 그 시험이 어떻게 분류됐는지 보여 줍니다. 예: NCT02818608</p>
+    <form class="nct" id="f3"><label for="nctIn" class="sr" style="position:absolute;left:-9999px">NCT 번호</label>
+      <input type="text" id="nctIn" inputmode="text" autocomplete="off" placeholder="NCT 번호 (예: NCT02818608)">
+      <button type="submit">찾기</button></form>
+    <div class="result" id="r3" aria-live="polite"><span class="muted">번호를 넣고 찾기를 누르세요.</span></div>
+  </section>
+
+  <section id="checklist" aria-labelledby="t4">
+    <h2 id="t4">모집 계획을 세울 때 함께 점검할 것</h2>
+    <p class="lead">숫자가 낮게 나와도 안심할 수는 없습니다. 이 자료는 등록 정보만 보며, 기관 수 하나로는 위험을 설명하기 어렵다는 것이 논문의 결론입니다. 아래는 확인한 선행 연구가 짚은 점입니다.</p>
+    <ul class="checklist">
+      <li><strong>대상자 수를 크게 잡지 않았나</strong> — 모집 실패의 가장 흔한 원인은 대상자 유병률의 과대 추정과, 모집자·참여자가 중재에 대해 가진 선입견이었습니다. 계획한 동의 절차로 예비 모집을 해 보면 대부분 예방할 수 있습니다. <span class="src">Briel 외, J Clin Epidemiol 2016</span></li>
+      <li><strong>기관당 현실적인 모집 속도인가</strong> — 뇌졸중 재활 시험 512건에서 선별한 사람의 약 3분의 1(중앙값 34%)이 동의했고, 기관당 한 달에 평균 1.5명을 모집했습니다. <span class="src">McGill 외, Trials 2020</span></li>
+      <li><strong>모집을 맡는 사람이 정해져 있나</strong> — 작업치료 시험에서 모집률은 치료사가 일한 기관보다, 모집하는 치료사의 판단(예: 예후에 대한 우려)과 관련이 있었습니다. <span class="src">Lannin·Cusick, Am J Occup Ther 2006</span></li>
+      <li><strong>지원 체계를 고려했나</strong> — 산업체 후원 시험은 모집 부진 중단이 적었다는 보고가 있습니다(8.4% 대 26.5%). <span class="src">Kasenda 외, JAMA 2014</span></li>
+    </ul>
+    <p class="src">한계: 등록 자료의 중단 사유 문장을 낱말 규칙으로 분류했고(점검 40건 중 37건 일치), 목표에 못 미친 채 완료된 시험은 모집 부진으로 세지 않았습니다. 인과 관계가 아니라 등록 자료의 관찰 결과입니다.</p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>자료: <span id="meta"></span></p>
+  <p>만든 사람: 임혜진 · <a href="/portfolio/">포트폴리오로 돌아가기</a> · 이 앱은 로그인·서버 저장·외부 호출 없이 브라우저 안에서만 계산합니다.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="stats.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
